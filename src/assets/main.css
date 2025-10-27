@@ -1,2 +1,20 @@
 @import "tailwindcss";
 
+@theme {
+  /* Vivid blue */
+  --color-primary-500: #3788E5;
+
+  /* Bright green */
+  --color-success-500: #27A468;
+
+  /* Strong red */
+  --color-danger-500: #E53761;
+
+  /* Vivid orange */
+  --color-warning-500: #F2A735;
+
+  --color-white: #FEFEFE;
+
+  --color-gray-100: #F2F5FA;
+}
+
