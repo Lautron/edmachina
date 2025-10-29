@@ -27,7 +27,7 @@ const props = withDefaults(
   },
 )
 
-const radius = 40
+const radius = 45
 const circumference = 2 * Math.PI * radius
 
 const strokeDashoffset = computed(() => {
@@ -41,8 +41,8 @@ const selectedDropdownValue = computed({
 </script>
 
 <template>
-  <Card>
-    <CardHeader class="flex flex-row items-center justify-between pb-2">
+  <Card class="gap-2 py-4">
+    <CardHeader class="flex flex-row items-center justify-between">
       <CardTitle class="text-sm font-medium text-muted-foreground">
         {{ title }}
       </CardTitle>
@@ -57,13 +57,13 @@ const selectedDropdownValue = computed({
         </SelectContent>
       </Select>
     </CardHeader>
-    <CardContent>
-      <div class="relative flex size-32 items-center justify-center">
+    <CardContent class='flex justify-center items-center px-2'>
+      <div class="relative flex size-52 items-center justify-center">
         <svg class="size-full -rotate-90" viewBox="0 0 100 100">
           <circle
             class="text-gray-100 dark:text-gray-800"
             stroke="currentColor"
-            stroke-width="12"
+            stroke-width="6"
             fill="transparent"
             :r="radius"
             cx="50"
@@ -72,7 +72,7 @@ const selectedDropdownValue = computed({
           <circle
             :class="chartColor"
             stroke="currentColor"
-            stroke-width="12"
+            stroke-width="6"
             fill="transparent"
             :r="radius"
             cx="50"
@@ -82,7 +82,7 @@ const selectedDropdownValue = computed({
             stroke-linecap="round"
           />
         </svg>
-        <span class="absolute text-2xl font-bold">
+        <span class="absolute text-5xl">
           {{ percentage }}%
         </span>
       </div>

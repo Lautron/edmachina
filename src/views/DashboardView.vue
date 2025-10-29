@@ -4,12 +4,12 @@ import StatDonutWidget from '@/components/widgets/StatDonutWidget.vue'
 </script>
 
 <template>
-  <div class="flex flex-col gap-4">
-    <div class="h-16 bg-card px-4 shadow-sm"></div>
-    <div class="grid grid-cols-1 gap-4 px-4 pb-4 lg:grid-cols-5">
+  <div class="flex h-full flex-col gap-5">
+    <div class="basis-0 grow-[10] bg-card px-4 shadow-sm"></div>
+    <div class="grid basis-0 grow-[90] grid-cols-1 gap-5 px-4 pb-4 lg:grid-cols-6">
       <!-- Left Section -->
-      <div class="flex flex-col gap-4 lg:col-span-3">
-        <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+      <div class="flex flex-col gap-5 lg:col-span-4">
+        <div class="grid basis-0 grow-[30] grid-cols-1 gap-5 md:grid-cols-3">
           <StatDonutWidget
               title="ACTIVITY"
               :percentage="25"
@@ -28,13 +28,13 @@ import StatDonutWidget from '@/components/widgets/StatDonutWidget.vue'
               :dropdown-options="['Weekly', 'Daily', 'Monthly']"
           />
         </div>
-        <Card class="h-96" />
+        <Card class="basis-0 grow-[65]" />
       </div>
 
       <!-- Right Section -->
-      <div class="flex flex-col gap-4 lg:col-span-2">
-        <Card class="h-80" />
-        <Card class="flex-1" />
+      <div class="flex flex-col gap-5 lg:col-span-2">
+        <Card class="basis-0 grow-[60]" />
+        <Card class="basis-0 grow-[40]" />
       </div>
     </div>
   </div>
