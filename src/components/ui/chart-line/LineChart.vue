@@ -62,6 +62,8 @@ function handleLegendItemClick(d: BulletLegendItemInterface, i: number) {
       :data="data"
       :style="{ height: isMounted ? '100%' : 'auto' }"
     >
+      <slot />
+
       <ChartCrosshair v-if="showTooltip" :colors="colors" :items="legendItems" :index="index" :custom-tooltip="customTooltip" />
 
       <template v-for="(category, i) in categories" :key="category">
@@ -101,8 +103,6 @@ function handleLegendItemClick(d: BulletLegendItemInterface, i: number) {
         }"
         tick-text-color="hsl(var(--vis-text-color))"
       />
-
-      <slot />
     </VisXYContainer>
   </div>
 </template>

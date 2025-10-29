@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import FireIcon from '@/assets/icons/fire.svg'
+import HeartbeatIcon from '@/assets/icons/heartbeat.svg'
+import HeartIcon from '@/assets/icons/heart.svg'
+import ThermometerIcon from '@/assets/icons/thermometer.svg'
 import {
   Card,
   CardContent,
@@ -20,6 +24,8 @@ import {
   TabsTrigger,
 } from '@/components/ui/tabs'
 import { LineChart } from '@/components/ui/chart-line'
+import { VisArea } from '@unovis/vue'
+import { CurveType } from '@unovis/ts'
 
 const stressData = [
   { month: 'September', level: 1.2 },
@@ -106,9 +112,19 @@ const chartData = computed(() => {
 </script>
 
 <template>
+  <svg width="0" height="0" class="absolute">
+    <defs>
+      <linearGradient id="area-fill-gradient" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="hsl(var(--vis-primary-color))" stop-opacity="0.2" />
+        <stop offset="100%" stop-color="hsl(var(--vis-primary-color))" stop-opacity="0" />
+      </linearGradient>
+    </defs>
+  </svg>
   <Card>
     <CardHeader class="flex flex-row items-center justify-between">
-      <CardTitle>Health Monitoring</CardTitle>
+      <CardTitle class="text-xs font-semibold uppercase text-muted-foreground tracking-wider">
+        Health Monitoring
+      </CardTitle>
       <Select default-value="monthly">
         <SelectTrigger class="w-[120px]">
           <SelectValue placeholder="Monthly" />
@@ -120,53 +136,93 @@ const chartData = computed(() => {
         </SelectContent>
       </Select>
     </CardHeader>
-    <CardContent>
-      <Tabs v-model="activeTab" default-value="stress">
-        <TabsList>
-          <TabsTrigger value="stress">Stress level</TabsTrigger>
-          <TabsTrigger value="pulse">Pulse</TabsTrigger>
-          <TabsTrigger value="temperature">Temperature</TabsTrigger>
-          <TabsTrigger value="calories">Calories Burned</TabsTrigger>
+    <CardContent class="flex flex-col flex-1 min-h-0">
+      <Tabs v-model="activeTab" default-value="stress" class="flex flex-col h-full">
+        <TabsList class="grid h-auto w-full grid-cols-2 gap-1 rounded-lg border bg-transparent p-1 sm:grid-cols-4">
+          <TabsTrigger value="stress" class="h-auto flex-1 gap-2 rounded-md border-none px-3 py-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
+            <img :src="HeartIcon" class="size-4" />
+            Stress level
+          </TabsTrigger>
+          <TabsTrigger value="pulse" class="h-auto flex-1 gap-2 rounded-md border-none px-3 py-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
+            <img :src="HeartbeatIcon" class="size-4" />
+            Pulse
+          </TabsTrigger>
+          <TabsTrigger value="temperature" class="h-auto flex-1 gap-2 rounded-md border-none px-3 py-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
+            <img :src="ThermometerIcon" class="size-4" />
+            Temperature
+          </TabsTrigger>
+          <TabsTrigger value="calories" class="h-auto flex-1 gap-2 rounded-md border-none px-3 py-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
+            <img :src="FireIcon" class="size-4" />
+            Calories Burned
+          </TabsTrigger>
         </TabsList>
-        <TabsContent value="stress" class="mt-4">
+        <TabsContent value="stress" class="mt-4 flex-1">
           <LineChart
-            class="h-48"
+            class="h-full"
             :data="chartData"
             index="month"
             :categories="['level']"
             :show-legend="false"
             :y-formatter="(tick: any) => typeof tick === 'number' ? tick.toFixed(0) : ''"
-          />
+          >
+            <VisArea
+              :x="(d: any, i: number) => i"
+              :y="(d: any) => d.level"
+              :curve-type="CurveType.MonotoneX"
+              color="url(#area-fill-gradient)"
+            />
+          </LineChart>
         </TabsContent>
-        <TabsContent value="pulse" class="mt-4">
+        <TabsContent value="pulse" class="mt-4 flex-1">
           <LineChart
-            class="h-48"
+            class="h-full"
             :data="chartData"
             index="month"
             :categories="['level']"
             :show-legend="false"
             :y-formatter="(tick: any) => typeof tick === 'number' ? tick.toFixed(0) : ''"
-          />
+          >
+            <VisArea
+              :x="(d: any, i: number) => i"
+              :y="(d: any) => d.level"
+              :curve-type="CurveType.MonotoneX"
+              color="url(#area-fill-gradient)"
+            />
+          </LineChart>
         </TabsContent>
-        <TabsContent value="temperature" class="mt-4">
+        <TabsContent value="temperature" class="mt-4 flex-1">
           <LineChart
-            class="h-48"
+            class="h-full"
             :data="chartData"
             index="month"
             :categories="['level']"
             :show-legend="false"
             :y-formatter="(tick: any) => typeof tick === 'number' ? tick.toFixed(1) : ''"
-          />
+          >
+            <VisArea
+              :x="(d: any, i: number) => i"
+              :y="(d: any) => d.level"
+              :curve-type="CurveType.MonotoneX"
+              color="url(#area-fill-gradient)"
+            />
+          </LineChart>
         </TabsContent>
-        <TabsContent value="calories" class="mt-4">
+        <TabsContent value="calories" class="mt-4 flex-1">
           <LineChart
-            class="h-48"
+            class="h-full"
             :data="chartData"
             index="month"
             :categories="['level']"
             :show-legend="false"
             :y-formatter="(tick: any) => typeof tick === 'number' ? tick.toFixed(0) : ''"
-          />
+          >
+            <VisArea
+              :x="(d: any, i: number) => i"
+              :y="(d: any) => d.level"
+              :curve-type="CurveType.MonotoneX"
+              color="url(#area-fill-gradient)"
+            />
+          </LineChart>
         </TabsContent>
       </Tabs>
     </CardContent>

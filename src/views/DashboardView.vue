@@ -6,11 +6,11 @@ import ChartWidget from '@/components/widgets/ChartWidget.vue'
 
 <template>
   <div class="flex h-full flex-col gap-5">
-    <div class="basis-0 grow-[10] bg-card px-4 shadow-sm"></div>
+    <div class="basis-0 grow-[10] bg-card px-4 shadow-sm" />
     <div class="grid basis-0 grow-[90] grid-cols-1 gap-5 px-4 pb-4 lg:grid-cols-6">
       <!-- Left Section -->
-      <div class="flex flex-col gap-5 lg:col-span-4">
-        <div class="grid basis-0 grow-[30] grid-cols-1 gap-5 md:grid-cols-3">
+      <div class="grid grid-rows-[auto_1fr] gap-5 lg:col-span-4">
+        <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
           <StatDonutWidget
               title="ACTIVITY"
               :percentage="25"
@@ -29,7 +29,7 @@ import ChartWidget from '@/components/widgets/ChartWidget.vue'
               :dropdown-options="['Weekly', 'Daily', 'Monthly']"
           />
         </div>
-        <ChartWidget class="basis-0 grow-[65]" />
+        <ChartWidget />
       </div>
 
       <!-- Right Section -->
