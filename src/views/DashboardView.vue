@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Card } from '@/components/ui/card'
 import StatDonutWidget from '@/components/widgets/StatDonutWidget.vue'
+import ChartWidget from '@/components/widgets/ChartWidget.vue'
 </script>
 
 <template>
@@ -28,7 +29,7 @@ import StatDonutWidget from '@/components/widgets/StatDonutWidget.vue'
               :dropdown-options="['Weekly', 'Daily', 'Monthly']"
           />
         </div>
-        <Card class="basis-0 grow-[65]" />
+        <ChartWidget class="basis-0 grow-[65]" />
       </div>
 
       <!-- Right Section -->
