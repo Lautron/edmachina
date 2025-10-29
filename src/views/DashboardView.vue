@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Card } from '@/components/ui/card'
+import StatDonutWidget from '@/components/widgets/StatDonutWidget.vue'
 </script>
 
 <template>
@@ -9,9 +10,23 @@ import { Card } from '@/components/ui/card'
       <!-- Left Section -->
       <div class="flex flex-col gap-4 lg:col-span-3">
         <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-          <Card class="h-48" />
-          <Card class="h-48" />
-          <Card class="h-48" />
+          <StatDonutWidget
+              title="ACTIVITY"
+              :percentage="25"
+              chart-color="text-destructive"
+          />
+          <StatDonutWidget
+              title="SLEEP"
+              :percentage="79"
+              chart-color="text-chart-2"
+              :dropdown-options="['Weekly', 'Daily', 'Monthly']"
+          />
+          <StatDonutWidget
+              title="WELLNESS"
+              :percentage="52"
+              chart-color="text-chart-4"
+              :dropdown-options="['Weekly', 'Daily', 'Monthly']"
+          />
         </div>
         <Card class="h-96" />
       </div>
