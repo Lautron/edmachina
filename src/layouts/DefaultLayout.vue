@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import TheSidebar from '@/components/TheSidebar.vue'
+import { SidebarInset } from '@/components/ui/sidebar'
 </script>
 
 <template>
-  <div class="flex h-screen">
-    <TheSidebar />
-    <div class="flex flex-col flex-1">
-      <main class="flex-1 overflow-y-auto p-4">
-        <router-view />
-      </main>
-    </div>
-  </div>
+  <TheSidebar />
+  <SidebarInset>
+    <main class="flex-1 overflow-y-auto">
+      <router-view />
+    </main>
+  </SidebarInset>
 </template>
