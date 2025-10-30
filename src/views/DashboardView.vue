@@ -1,9 +1,18 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import StatDonutWidget from '@/components/widgets/StatDonutWidget.vue'
 import ChartWidget from '@/components/widgets/ChartWidget.vue'
 import ChatWidget from '@/components/widgets/ChatWidget.vue'
 import VaccinationSchedule from '@/components/widgets/VaccinationSchedule.vue'
 import WidgetSearchHeader from '@/components/widgets/WidgetSearchHeader.vue'
+import { getDonutStats, type DonutStat } from '@/api/mock'
+
+const donutStats = ref<DonutStat[]>([])
+const loadingStats = ref(true)
+onMounted(async () => {
+  donutStats.value = await getDonutStats()
+  loadingStats.value = false
+})
 </script>
 
 <template>
@@ -13,23 +22,19 @@ import WidgetSearchHeader from '@/components/widgets/WidgetSearchHeader.vue'
       <!-- Left Section -->
       <div class="grid grid-rows-[21rem_1fr] gap-6 lg:col-span-11">
         <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
-          <StatDonutWidget
-              title="ACTIVITY"
-              :percentage="25"
-              chart-color="text-destructive"
-          />
-          <StatDonutWidget
-              title="SLEEP"
-              :percentage="79"
-              chart-color="text-chart-2"
-              :dropdown-options="['Weekly', 'Daily', 'Monthly']"
-          />
-          <StatDonutWidget
-              title="WELLNESS"
-              :percentage="52"
-              chart-color="text-chart-4"
-              :dropdown-options="['Weekly', 'Daily', 'Monthly']"
-          />
+          <div v-if="loadingStats" class="flex items-center justify-center md:col-span-3">
+            <p>Loading stats...</p>
+          </div>
+          <template v-else>
+            <StatDonutWidget
+              v-for="stat in donutStats"
+              :key="stat.title"
+              :title="stat.title"
+              :percentage="stat.percentage"
+              :chart-color="stat.chartColor"
+              :dropdown-options="stat.dropdownOptions"
+            />
+          </template>
         </div>
         <ChartWidget />
       </div>
