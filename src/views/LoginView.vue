@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter, RouterLink } from 'vue-router'
 import { Button } from '@/components/ui/button'
@@ -9,9 +10,18 @@ import Logo from '@/assets/icons/logo.svg'
 const authStore = useAuthStore()
 const router = useRouter()
 
+const email = ref('')
+const password = ref('')
+const error = ref('')
+
 function handleLogin() {
-  authStore.login()
-  router.push('/')
+  error.value = ''
+  const success = authStore.login(email.value, password.value)
+  if (success) {
+    router.push('/')
+  } else {
+    error.value = 'Invalid email or password. Please try again.'
+  }
 }
 </script>
 
@@ -33,7 +43,7 @@ function handleLogin() {
         <div class="space-y-4">
           <div>
             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-            <Input id="email" type="email" placeholder="m@example.com" class="mt-1" />
+            <Input id="email" v-model="email" type="email" placeholder="m@example.com" class="mt-1" />
           </div>
           <div>
             <div class="flex items-center justify-between">
@@ -42,7 +52,10 @@ function handleLogin() {
                 Forgot password?
               </RouterLink>
             </div>
-            <Input id="password" type="password" class="mt-1" />
+            <Input id="password" v-model="password" type="password" class="mt-1" />
+          </div>
+          <div v-if="error" class="text-sm text-destructive">
+            {{ error }}
           </div>
           <Button class="w-full" @click="handleLogin">
             Log In
