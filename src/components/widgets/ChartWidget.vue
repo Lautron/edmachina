@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import FireIcon from '@/assets/icons/fire.svg'
 import HeartbeatIcon from '@/assets/icons/heartbeat.svg'
 import HeartIcon from '@/assets/icons/heart.svg'
@@ -12,7 +12,6 @@ import {
 } from '@/components/ui/card'
 import {
   Tabs,
-  TabsContent,
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs'
@@ -39,6 +38,26 @@ const dropdownOptions = ['Daily', 'Weekly', 'Monthly']
 const selectedDropdownValue = ref(dropdownOptions[2])
 
 
+const yFormatter = (tick: number) => tick.toFixed(0)
+const yFormatterWithOneDecimal = (tick: number) => tick.toFixed(1)
+
+const chartConfig = computed(() => {
+  if (!healthData.value)
+    return null
+
+  switch (activeTab.value) {
+    case 'stress':
+      return { data: healthData.value.stress, yFormatter }
+    case 'pulse':
+      return { data: healthData.value.pulse, yFormatter }
+    case 'temperature':
+      return { data: healthData.value.temperature, yFormatter: yFormatterWithOneDecimal }
+    case 'calories':
+      return { data: healthData.value.calories, yFormatter }
+    default:
+      return null
+  }
+})
 </script>
 
 <template>
@@ -81,42 +100,15 @@ const selectedDropdownValue = ref(dropdownOptions[2])
             <span class="text-base font-semibold">Calories burned</span>
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="stress" class="mt-4 flex-1">
+        <div v-if="chartConfig" class="mt-4 flex-1">
           <LineChart
             class="h-full"
-            :data="healthData.stress"
+            :data="chartConfig.data"
             index="month"
             :categories="['level']"
-            :y-formatter="(tick: number) => tick.toFixed(0)"
+            :y-formatter="chartConfig.yFormatter"
           />
-        </TabsContent>
-        <TabsContent value="pulse" class="mt-4 flex-1">
-          <LineChart
-            class="h-full"
-            :data="healthData.pulse"
-            index="month"
-            :categories="['level']"
-            :y-formatter="(tick: number) => tick.toFixed(0)"
-          />
-        </TabsContent>
-        <TabsContent value="temperature" class="mt-4 flex-1">
-          <LineChart
-            class="h-full"
-            :data="healthData.temperature"
-            index="month"
-            :categories="['level']"
-            :y-formatter="(tick: number) => tick.toFixed(1)"
-          />
-        </TabsContent>
-        <TabsContent value="calories" class="mt-4 flex-1">
-          <LineChart
-            class="h-full"
-            :data="healthData.calories"
-            index="month"
-            :categories="['level']"
-            :y-formatter="(tick: number) => tick.toFixed(0)"
-          />
-        </TabsContent>
+        </div>
       </Tabs>
     </CardContent>
   </Card>
