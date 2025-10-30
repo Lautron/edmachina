@@ -25,6 +25,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { getVaccinations, type Vaccination } from '@/api/mock'
+import { Spinner } from '@/components/ui/spinner'
 
 const vaccinations = ref<Vaccination[]>([])
 const sortBy = ref('by-type')
@@ -84,7 +85,7 @@ const badgeVariants = {
     </CardHeader>
     <CardContent class="flex-grow">
       <div v-if="loading" class="flex h-full items-center justify-center">
-        <p>Loading vaccination schedule...</p>
+        <Spinner class="size-8"/>
       </div>
       <Table v-else class="h-full rounded-lg border">
         <TableHeader class="bg-gray-100">

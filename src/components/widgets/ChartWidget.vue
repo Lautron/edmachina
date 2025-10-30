@@ -24,6 +24,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { getHealthData, type HealthData } from '@/api/mock'
+import { Spinner } from '@/components/ui/spinner'
 
 const activeTab = ref('stress')
 const healthData = ref<HealthData | null>(null)
@@ -88,7 +89,7 @@ const chartConfig = computed(() => {
     </CardHeader>
     <CardContent class="flex flex-col flex-1 min-h-0">
       <div v-if="loading" class="flex h-full items-center justify-center">
-        <p>Loading health data...</p>
+        <Spinner class="size-8"/>
       </div>
       <Tabs v-else-if="healthData" v-model="activeTab" default-value="stress" class="flex flex-col h-full">
         <TabsList class="grid h-auto w-full grid-cols-2 gap-2 bg-transparent p-0 sm:grid-cols-4">

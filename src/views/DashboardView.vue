@@ -5,6 +5,7 @@ import ChartWidget from '@/components/widgets/ChartWidget.vue'
 import ChatWidget from '@/components/widgets/ChatWidget.vue'
 import VaccinationSchedule from '@/components/widgets/VaccinationSchedule.vue'
 import WidgetSearchHeader from '@/components/widgets/WidgetSearchHeader.vue'
+import { Spinner } from '@/components/ui/spinner'
 import { getDonutStats, type DonutStat } from '@/api/mock'
 
 const donutStats = ref<DonutStat[]>([])
@@ -23,7 +24,7 @@ onMounted(async () => {
       <div class="grid grid-rows-[21rem_1fr] gap-6 lg:col-span-11">
         <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
           <div v-if="loadingStats" class="flex items-center justify-center md:col-span-3">
-            <p>Loading stats...</p>
+            <Spinner class="size-8" />
           </div>
           <template v-else>
             <StatDonutWidget

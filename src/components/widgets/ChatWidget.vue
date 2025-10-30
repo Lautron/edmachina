@@ -7,6 +7,7 @@ import {
 } from '@/components/ui/card'
 import ChatListItem from './ChatListItem.vue'
 import { getChatMessages, type ChatMessage } from '@/api/mock'
+import { Spinner } from '@/components/ui/spinner'
 import { onMounted, ref } from 'vue'
 
 const chatMessages = ref<ChatMessage[]>([])
@@ -39,7 +40,7 @@ onMounted(async () => {
         />
       </div>
       <div v-else class="flex h-full items-center justify-center">
-        <p>Loading chats...</p>
+        <Spinner class="size-8"/>
       </div>
     </CardContent>
   </Card>
