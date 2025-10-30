@@ -3,8 +3,8 @@ import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { RouterLink } from 'vue-router'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import AuthLayout from '@/layouts/AuthLayout.vue'
+import AuthFormField from '@/components/auth/AuthFormField.vue'
 
 type Stage = 'enterEmail' | 'resetPassword' | 'success'
 
@@ -72,10 +72,7 @@ function handlePasswordReset() {
   
       <!-- Email Entry Stage -->
       <form v-if="stage === 'enterEmail'" class="space-y-4" @submit.prevent="handleEmailSubmit">
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-          <Input id="email" v-model="email" type="email" placeholder="m@example.com" class="mt-1" required />
-        </div>
+        <AuthFormField id="email" v-model="email" label="Email" type="email" placeholder="m@example.com" required />
         <Button class="w-full" type="submit">
           Continue
         </Button>
@@ -84,14 +81,8 @@ function handlePasswordReset() {
       <!-- Password Reset Stage -->
       <form v-if="stage === 'resetPassword'" class="space-y-4" @submit.prevent="handlePasswordReset">
         <p class="text-sm text-center text-muted-foreground">Enter a new password for {{ email }}</p>
-        <div>
-          <label for="newPassword" class="block text-sm font-medium text-gray-700">New Password</label>
-          <Input id="newPassword" v-model="newPassword" type="password" class="mt-1" required />
-        </div>
-        <div>
-          <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm New Password</label>
-          <Input id="confirmPassword" v-model="confirmPassword" type="password" class="mt-1" required />
-        </div>
+        <AuthFormField id="newPassword" v-model="newPassword" label="New Password" type="password" required />
+        <AuthFormField id="confirmPassword" v-model="confirmPassword" label="Confirm New Password" type="password" required />
         <div v-if="error" class="text-sm text-destructive">
           {{ error }}
         </div>

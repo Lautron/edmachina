@@ -5,6 +5,7 @@ import { RouterLink, useRouter } from 'vue-router'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import AuthLayout from '@/layouts/AuthLayout.vue'
+import AuthFormField from '@/components/auth/AuthFormField.vue'
 
 const authStore = useAuthStore()
 const router = useRouter()
@@ -27,10 +28,7 @@ function handleLogin() {
 <template>
     <AuthLayout title="Welcome to PetCare" description="Enter your credentials to access your account">
       <div class="space-y-4">
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-          <Input id="email" v-model="email" type="email" placeholder="m@example.com" class="mt-1" />
-        </div>
+        <AuthFormField id="email" v-model="email" label="Email" type="email" placeholder="m@example.com" />
         <div>
           <div class="flex items-center justify-between">
             <label for="password" class="block text-sm font-medium text-gray-700">Password</label>

@@ -3,8 +3,8 @@ import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { RouterLink, useRouter } from 'vue-router'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import AuthLayout from '@/layouts/AuthLayout.vue'
+import AuthFormField from '@/components/auth/AuthFormField.vue'
 
 const authStore = useAuthStore()
 const router = useRouter()
@@ -22,18 +22,9 @@ function handleRegister() {
 <template>
     <AuthLayout title="Create an Account" description="Enter your details to get started">
       <div class="space-y-4">
-        <div>
-          <label for="fullName" class="block text-sm font-medium text-gray-700">Full Name</label>
-          <Input id="fullName" v-model="fullName" type="text" placeholder="John Doe" class="mt-1" />
-        </div>
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-          <Input id="email" v-model="email" type="email" placeholder="m@example.com" class="mt-1" />
-        </div>
-        <div>
-          <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-          <Input id="password" v-model="password" type="password" class="mt-1" />
-        </div>
+        <AuthFormField id="fullName" v-model="fullName" label="Full Name" placeholder="John Doe" />
+        <AuthFormField id="email" v-model="email" label="Email" type="email" placeholder="m@example.com" />
+        <AuthFormField id="password" v-model="password" label="Password" type="password" />
         <Button class="w-full" @click="handleRegister">
           Sign Up
         </Button>
