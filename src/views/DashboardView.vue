@@ -2,6 +2,7 @@
 import { Card } from '@/components/ui/card'
 import StatDonutWidget from '@/components/widgets/StatDonutWidget.vue'
 import ChartWidget from '@/components/widgets/ChartWidget.vue'
+import ChatWidget from '@/components/widgets/ChatWidget.vue'
 </script>
 
 <template>
@@ -35,7 +36,7 @@ import ChartWidget from '@/components/widgets/ChartWidget.vue'
       <!-- Right Section -->
       <div class="flex flex-col gap-5 lg:col-span-2">
         <Card class="basis-0 grow-[60]" />
-        <Card class="basis-0 grow-[40]" />
+        <ChatWidget class="basis-0 grow-[40]" />
       </div>
     </div>
   </div>
