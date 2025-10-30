@@ -3,12 +3,13 @@ import StatDonutWidget from '@/components/widgets/StatDonutWidget.vue'
 import ChartWidget from '@/components/widgets/ChartWidget.vue'
 import ChatWidget from '@/components/widgets/ChatWidget.vue'
 import VaccinationSchedule from '@/components/widgets/VaccinationSchedule.vue'
+import WidgetSearchHeader from '@/components/widgets/WidgetSearchHeader.vue'
 </script>
 
 <template>
   <div class="flex h-full flex-col gap-5">
-    <div class="basis-0 grow-[10] bg-card px-4 shadow-sm" />
-    <div class="grid basis-0 grow-[90] grid-cols-1 gap-5 px-4 pb-4 lg:grid-cols-6">
+    <WidgetSearchHeader />
+    <div class="grid flex-1 grid-cols-1 gap-5 px-4 pb-4 lg:grid-cols-6">
       <!-- Left Section -->
       <div class="grid grid-rows-[auto_1fr] gap-5 lg:col-span-4">
         <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
