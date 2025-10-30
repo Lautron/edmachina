@@ -38,6 +38,50 @@
    authStore.logout()
    router.push('/login')
  }
+
+ interface MenuItem {
+   to: string
+   text: string
+   iconSrc: string
+   isChat?: boolean
+   notificationCount?: number
+ }
+
+ interface MenuGroup {
+   label: string
+   items: MenuItem[]
+ }
+
+const menuGroups: MenuGroup[] = [
+  {
+    label: 'MENU',
+    items: [
+      { to: '/', text: 'Dashboard', iconSrc: DashboardIcon },
+      { to: '/pet-profile', text: 'Pet profile', iconSrc: PawIcon },
+    ],
+  },
+  {
+    label: 'ANALYTICS',
+    items: [
+      { to: '/health', text: 'Health monitoring', iconSrc: HealthIcon },
+      { to: '/vaccination', text: 'Vaccination schedule', iconSrc: VaccineIcon },
+    ],
+  },
+  {
+    label: 'SCHEDULE',
+    items: [
+      { to: '/chat', text: 'Chat', iconSrc: ChatIcon, isChat: true },
+      { to: '/appointments', text: 'Appointments', iconSrc: CalendarIcon, notificationCount: 2 },
+    ],
+  },
+  {
+    label: 'HELP',
+    items: [
+      { to: '/settings', text: 'Settings', iconSrc: SettingsIcon },
+      { to: '/documentation', text: 'Documentation', iconSrc: DocsIcon },
+    ],
+  },
+]
  </script>
 
  <template>
@@ -49,65 +93,29 @@
        </div>
      </SidebarHeader>
      <SidebarContent class="pt-12">
-       <SidebarGroup>
-        <SidebarGroupLabel>MENU</SidebarGroupLabel>
-         <SidebarMenu>
-           <SidebarMenuItem>
-             <SidebarLink to="/" text="Dashboard" :iconSrc="DashboardIcon" />
-           </SidebarMenuItem>
-           <SidebarMenuItem>
-             <SidebarLink to="/pet-profile" text="Pet profile" :iconSrc="PawIcon" />
-           </SidebarMenuItem>
-         </SidebarMenu>
-       </SidebarGroup>
-       <SidebarSeparator />
-       <SidebarGroup>
-         <SidebarGroupLabel>ANALYTICS</SidebarGroupLabel>
-         <SidebarMenu>
-           <SidebarMenuItem>
-             <SidebarLink to="/health" text="Health monitoring" :iconSrc="HealthIcon" />
-           </SidebarMenuItem>
-           <SidebarMenuItem>
-             <SidebarLink to="/vaccination" text="Vaccination schedule" :iconSrc="VaccineIcon" />
-           </SidebarMenuItem>
-         </SidebarMenu>
-       </SidebarGroup>
-       <SidebarSeparator />
-       <SidebarGroup>
-         <SidebarGroupLabel>SCHEDULE</SidebarGroupLabel>
-         <SidebarMenu>
-           <SidebarMenuItem>
-             <SidebarLink to="/chat" text="Chat" :iconSrc="ChatIcon">
-               <div class="flex -space-x-2 overflow-hidden ml-auto">
-                 <Avatar class="inline-block h-6 w-6 rounded-xs ring-2 ring-white">
-                   <AvatarImage :src="helenAvatar" alt="Helen Brooks" />
-                 </Avatar>
-                 <Avatar class="inline-block h-6 w-6 rounded-xs ring-2 ring-white">
-                   <AvatarImage :src="kathrynAvatar" alt="Kathryn Murphy" />
-                 </Avatar>
-                 <Avatar class="inline-block h-6 w-6 rounded-xs ring-2 ring-white">
-                   <AvatarImage :src="jamesAvatar" alt="James Grey" />
-                 </Avatar>
-               </div>
-             </SidebarLink>
-           </SidebarMenuItem>
-           <SidebarMenuItem>
-             <SidebarLink to="/appointments" text="Appointments" :iconSrc="CalendarIcon" :notification-count="2" />
-           </SidebarMenuItem>
-         </SidebarMenu>
-       </SidebarGroup>
-       <SidebarSeparator />
-       <SidebarGroup>
-         <SidebarGroupLabel>HELP</SidebarGroupLabel>
-         <SidebarMenu>
-           <SidebarMenuItem>
-             <SidebarLink to="/settings" text="Settings" :iconSrc="SettingsIcon" />
-           </SidebarMenuItem>
-           <SidebarMenuItem>
-             <SidebarLink to="/documentation" text="Documentation" :iconSrc="DocsIcon" />
-           </SidebarMenuItem>
-         </SidebarMenu>
-       </SidebarGroup>
+       <template v-for="(group, index) in menuGroups" :key="group.label">
+         <SidebarGroup>
+           <SidebarGroupLabel>{{ group.label }}</SidebarGroupLabel>
+           <SidebarMenu>
+             <SidebarMenuItem v-for="item in group.items" :key="item.text">
+               <SidebarLink :to="item.to" :text="item.text" :iconSrc="item.iconSrc" :notification-count="item.notificationCount">
+                 <div v-if="item.isChat" class="flex -space-x-2 overflow-hidden ml-auto">
+                   <Avatar class="inline-block h-6 w-6 rounded-xs ring-2 ring-white">
+                     <AvatarImage :src="helenAvatar" alt="Helen Brooks" />
+                   </Avatar>
+                   <Avatar class="inline-block h-6 w-6 rounded-xs ring-2 ring-white">
+                     <AvatarImage :src="kathrynAvatar" alt="Kathryn Murphy" />
+                   </Avatar>
+                   <Avatar class="inline-block h-6 w-6 rounded-xs ring-2 ring-white">
+                     <AvatarImage :src="jamesAvatar" alt="James Grey" />
+                   </Avatar>
+                 </div>
+               </SidebarLink>
+             </SidebarMenuItem>
+           </SidebarMenu>
+         </SidebarGroup>
+         <SidebarSeparator v-if="index < menuGroups.length - 1" />
+       </template>
      </SidebarContent>
      <SidebarFooter>
        <Button
