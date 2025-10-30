@@ -33,5 +33,4 @@ npm run dev
 * Vue Router
 * Tailwind CSS
 * ApexCharts / vue3-apexcharts
-* Vue Test Utils
 * Shadcn-vue
