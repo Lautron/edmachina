@@ -37,6 +37,13 @@ onMounted(async () => {
 const dropdownOptions = ['Daily', 'Weekly', 'Monthly']
 const selectedPeriod = ref(dropdownOptions[2])
 
+const tabs = [
+  { value: 'stress', label: 'Stress level', icon: HeartIcon },
+  { value: 'pulse', label: 'Pulse', icon: HeartbeatIcon },
+  { value: 'temperature', label: 'Temperature', icon: ThermometerIcon },
+  { value: 'calories', label: 'Calories burned', icon: FireIcon },
+]
+
 
 const yFormatter = (tick: number) => tick.toFixed(0)
 const yFormatterWithOneDecimal = (tick: number) => tick.toFixed(1)
@@ -85,21 +92,14 @@ const chartConfig = computed(() => {
       </div>
       <Tabs v-else-if="healthData" v-model="activeTab" default-value="stress" class="flex flex-col h-full">
         <TabsList class="grid h-auto w-full grid-cols-2 gap-2 bg-transparent p-0 sm:grid-cols-4">
-          <TabsTrigger value="stress" class="h-auto flex-1 gap-2.5 rounded-lg border-none px-5 py-3 text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
-            <img :src="HeartIcon" class="size-5" :class="[activeTab === 'stress' ? 'filter-white' : 'filter-gray']" />
-            <span class="text-base font-semibold">Stress level</span>
-          </TabsTrigger>
-          <TabsTrigger value="pulse" class="h-auto flex-1 gap-2.5 rounded-lg border-none px-5 py-3 text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
-            <img :src="HeartbeatIcon" class="size-5" :class="[activeTab === 'pulse' ? 'filter-white' : 'filter-gray']" />
-            <span class="text-base font-semibold">Pulse</span>
-          </TabsTrigger>
-          <TabsTrigger value="temperature" class="h-auto flex-1 gap-2.5 rounded-lg border-none px-5 py-3 text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
-            <img :src="ThermometerIcon" class="size-5" :class="[activeTab === 'temperature' ? 'filter-white' : 'filter-gray']" />
-            <span class="text-base font-semibold">Temperature</span>
-          </TabsTrigger>
-          <TabsTrigger value="calories" class="h-auto flex-1 gap-2.5 rounded-lg border-none px-5 py-3 text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
-            <img :src="FireIcon" class="size-5" :class="[activeTab === 'calories' ? 'filter-white' : 'filter-gray']" />
-            <span class="text-base font-semibold">Calories burned</span>
+          <TabsTrigger
+            v-for="tab in tabs"
+            :key="tab.value"
+            :value="tab.value"
+            class="h-auto flex-1 gap-2.5 rounded-lg border-none px-5 py-3 text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm"
+          >
+            <img :src="tab.icon" class="size-5" :class="[activeTab === tab.value ? 'filter-white' : 'filter-gray']" />
+            <span class="text-base font-semibold">{{ tab.label }}</span>
           </TabsTrigger>
         </TabsList>
         <div v-if="chartConfig" class="mt-4 flex-1">
