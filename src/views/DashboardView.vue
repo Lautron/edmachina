@@ -9,9 +9,9 @@ import WidgetSearchHeader from '@/components/widgets/WidgetSearchHeader.vue'
 <template>
   <div class="flex h-full flex-col gap-6">
     <WidgetSearchHeader />
-    <div class="grid flex-1 grid-cols-1 gap-6 px-6 pb-4 lg:grid-cols-5">
+    <div class="grid flex-1 grid-cols-1 gap-6 px-6 pb-4 lg:grid-cols-20">
       <!-- Left Section -->
-      <div class="grid grid-rows-[auto_1fr] gap-6 lg:col-span-3">
+      <div class="grid grid-rows-[21rem_1fr] gap-6 lg:col-span-11">
         <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
           <StatDonutWidget
               title="ACTIVITY"
@@ -35,7 +35,7 @@ import WidgetSearchHeader from '@/components/widgets/WidgetSearchHeader.vue'
       </div>
 
       <!-- Right Section -->
-      <div class="grid grid-rows-20 gap-6 lg:col-span-2">
+      <div class="grid grid-rows-20 gap-6 lg:col-span-9">
         <VaccinationSchedule class="row-span-12" />
         <ChatWidget class="row-span-8" />
       </div>

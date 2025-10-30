@@ -31,7 +31,7 @@ const chatMessages: ChatMessage[] = [
 <template>
   <Card class="flex flex-col h-full">
     <CardHeader>
-      <CardTitle class="text-xs font-semibold uppercase text-muted-foreground tracking-wider">
+      <CardTitle class="text-base font-semibold uppercase text-muted-foreground tracking-wider">
         Chat
       </CardTitle>
     </CardHeader>

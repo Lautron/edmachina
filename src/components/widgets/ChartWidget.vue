@@ -122,7 +122,7 @@ const chartData = computed(() => {
   </svg>
   <Card>
     <CardHeader class="flex flex-row items-center justify-between">
-      <CardTitle class="text-xs font-semibold uppercase text-muted-foreground tracking-wider">
+      <CardTitle class="text-base font-semibold uppercase text-muted-foreground tracking-wider">
         Health Monitoring
       </CardTitle>
       <Select default-value="monthly">

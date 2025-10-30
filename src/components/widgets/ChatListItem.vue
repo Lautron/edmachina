@@ -34,7 +34,7 @@ const fallback = computed(() => props.name.substring(0, 2).toUpperCase())
       />
     </div>
     <div class="min-w-0 flex-1">
-      <h4 class="font-semibold">{{ name }}</h4>
+      <h4 class="font-semibold text-base">{{ name }}</h4>
       <p class="truncate text-sm text-muted-foreground">
         {{ message }}
       </p>

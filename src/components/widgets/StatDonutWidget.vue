@@ -41,9 +41,9 @@ const selectedDropdownValue = computed({
 </script>
 
 <template>
-  <Card class="gap-2 py-4">
+  <Card class="h-full flex flex-col justify-between gap-2 py-4">
     <CardHeader class="flex flex-row items-center justify-between">
-      <CardTitle class="text-sm font-medium text-muted-foreground">
+      <CardTitle class="text-base font-medium text-muted-foreground">
         {{ title }}
       </CardTitle>
       <Select v-model="selectedDropdownValue">
@@ -57,7 +57,7 @@ const selectedDropdownValue = computed({
         </SelectContent>
       </Select>
     </CardHeader>
-    <CardContent class='flex justify-center items-center px-2'>
+    <CardContent class='flex-grow flex justify-center items-center px-2'>
       <div class="relative flex size-52 items-center justify-center">
         <svg class="size-full -rotate-90" viewBox="0 0 100 100">
           <circle
@@ -82,7 +82,7 @@ const selectedDropdownValue = computed({
             stroke-linecap="round"
           />
         </svg>
-        <span class="absolute text-5xl">
+        <span class="absolute text-5xl font-semibold">
           {{ percentage }}%
         </span>
       </div>

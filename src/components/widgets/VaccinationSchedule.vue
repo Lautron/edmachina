@@ -49,7 +49,7 @@ const badgeVariants = {
   <Card class="flex h-full flex-col">
     <CardHeader>
       <div class="flex items-center justify-between">
-        <CardTitle class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+        <CardTitle class="text-base font-semibold uppercase tracking-wider text-muted-foreground">
           Vaccination Schedule
         </CardTitle>
         <div class="flex items-center gap-4">
@@ -70,20 +70,20 @@ const badgeVariants = {
       <Table class="h-full rounded-lg border">
         <TableHeader class="bg-gray-100">
           <TableRow class="border-b-0 hover:bg-transparent">
-            <TableHead class="rounded-tl-lg py-7 px-6 font-semibold">Name</TableHead>
-            <TableHead class="py-7 px-6 font-semibold">Type</TableHead>
-            <TableHead class="py-7 px-6 font-semibold">Date</TableHead>
-            <TableHead class="rounded-tr-lg py-7 px-6 font-semibold">Veterinar</TableHead>
+            <TableHead class="rounded-tl-lg py-7 px-6 font-semibold text-base">Name</TableHead>
+            <TableHead class="py-7 px-6 font-semibold text-base">Type</TableHead>
+            <TableHead class="py-7 px-6 font-semibold text-base">Date</TableHead>
+            <TableHead class="rounded-tr-lg py-7 px-6 font-semibold text-base">Veterinar</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody class="h-full">
           <TableRow v-for="vaccination in vaccinations" :key="vaccination.name">
-            <TableCell class="font-medium py-7 px-6">{{ vaccination.name }}</TableCell>
-            <TableCell class="py-7 px-6">
-              <Badge :variant="badgeVariants[vaccination.type]" class="rounded-full px-3">{{ vaccination.type }}</Badge>
+            <TableCell class="font-medium text-base py-7 px-6">{{ vaccination.name }}</TableCell>
+            <TableCell class="text-base py-7 px-6">
+              <Badge :variant="badgeVariants[vaccination.type]" class="rounded-sm px-4 py-2">{{ vaccination.type }}</Badge>
             </TableCell>
-            <TableCell class="text-muted-foreground py-7 px-6">{{ vaccination.date }}</TableCell>
-            <TableCell class="py-7 px-6">
+            <TableCell class="font-medium text-base py-7 px-6">{{ vaccination.date }}</TableCell>
+            <TableCell class="text-base py-7 px-6">
               <Button v-if="!vaccination.veterinarian" size="sm">
                 Find veterinar
               </Button>
