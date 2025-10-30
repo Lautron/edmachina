@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Search } from 'lucide-vue-next'
+import { onMounted, ref } from 'vue'
 import {
   Card,
   CardContent,
@@ -23,20 +24,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { getVaccinations, type Vaccination } from '@/api/mock'
 
-interface Vaccination {
-  name: string
-  type: 'Overdue' | 'Noncore' | 'Core'
-  date: string
-  veterinarian?: string
-}
-
-const vaccinations: Vaccination[] = [
-  { name: 'Rabies', type: 'Overdue', date: '01 Dec 2023' },
-  { name: 'Bordetella', type: 'Noncore', date: '11 Dec 2024', veterinarian: 'James Grey' },
-  { name: 'Distemper', type: 'Core', date: '27 Jun 2024', veterinarian: 'Jim Brown' },
-  { name: 'Calicivirus', type: 'Core', date: '16 Sep 2024', veterinarian: 'Helen Brooks' },
-]
+const vaccinations = ref<Vaccination[]>([])
+const loading = ref(true)
+onMounted(async () => {
+  vaccinations.value = await getVaccinations()
+  loading.value = false
+})
 
 const badgeVariants = {
   Overdue: 'destructive',
@@ -67,7 +62,10 @@ const badgeVariants = {
       </div>
     </CardHeader>
     <CardContent class="flex-grow">
-      <Table class="h-full rounded-lg border">
+      <div v-if="loading" class="flex h-full items-center justify-center">
+        <p>Loading vaccination schedule...</p>
+      </div>
+      <Table v-else class="h-full rounded-lg border">
         <TableHeader class="bg-gray-100">
           <TableRow class="border-b-0 hover:bg-transparent">
             <TableHead class="rounded-tl-lg py-7 px-6 font-semibold text-base">Name</TableHead>
