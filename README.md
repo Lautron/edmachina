@@ -1,6 +1,6 @@
 # PetCare dashboard
 
-Podes ver el codigo andando en el siguiente link: https://edmachina.ronbachmann.dev
+El codigo está deployeado en el siguiente link: https://edmachina.ronbachmann.dev
 
 ## Requisitos
 - Node.js: Se recomienda usar la versión 20.19.0 o una más nueva.
