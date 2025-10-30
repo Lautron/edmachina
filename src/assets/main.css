@@ -143,7 +143,7 @@
 
   --vis-primary-color: 214 79% 56%; /* --color-primary-500 */
   --vis-secondary-color: var(--color-success-500);
-  --vis-text-color: var(--color-gray-100);
+  --vis-text-color: var(--color-gray-500);
 }
 
 .dark {
@@ -183,6 +183,13 @@
   --vis-primary-color: var(--color-primary-500);
   --vis-secondary-color: var(--color-success-500);
   --vis-text-color: var(--color-gray-100);
+}
+
+.filter-white {
+  filter: brightness(0) invert(1);
+}
+.filter-gray {
+ filter: invert(39%) sepia(15%) saturate(406%) hue-rotate(176deg) brightness(94%) contrast(88%); /* Corresponds to text-gray-600 */
 }
 
 @layer base {

@@ -11,13 +11,6 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import {
   Tabs,
   TabsContent,
   TabsList,
@@ -109,6 +102,8 @@ const chartData = computed(() => {
       return stressData
   }
 })
+
+
 </script>
 
 <template>
@@ -138,21 +133,21 @@ const chartData = computed(() => {
     </CardHeader>
     <CardContent class="flex flex-col flex-1 min-h-0">
       <Tabs v-model="activeTab" default-value="stress" class="flex flex-col h-full">
-        <TabsList class="grid h-auto w-full grid-cols-2 gap-1 rounded-lg border bg-transparent p-1 sm:grid-cols-4">
-          <TabsTrigger value="stress" class="h-auto flex-1 gap-2 rounded-md border-none px-3 py-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
-            <img :src="HeartIcon" class="size-4" />
+        <TabsList class="grid h-auto w-full grid-cols-2 gap-2 bg-transparent p-0 sm:grid-cols-4">
+          <TabsTrigger value="stress" class="h-auto flex-1 gap-2.5 rounded-lg border-none px-5 py-3 text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
+            <img :src="HeartIcon" class="size-5" :class="[activeTab === 'stress' ? 'filter-white' : 'filter-gray']" />
             Stress level
           </TabsTrigger>
-          <TabsTrigger value="pulse" class="h-auto flex-1 gap-2 rounded-md border-none px-3 py-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
-            <img :src="HeartbeatIcon" class="size-4" />
+          <TabsTrigger value="pulse" class="h-auto flex-1 gap-2.5 rounded-lg border-none px-5 py-3 text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
+            <img :src="HeartbeatIcon" class="size-5" :class="[activeTab === 'pulse' ? 'filter-white' : 'filter-gray']" />
             Pulse
           </TabsTrigger>
-          <TabsTrigger value="temperature" class="h-auto flex-1 gap-2 rounded-md border-none px-3 py-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
-            <img :src="ThermometerIcon" class="size-4" />
+          <TabsTrigger value="temperature" class="h-auto flex-1 gap-2.5 rounded-lg border-none px-5 py-3 text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
+            <img :src="ThermometerIcon" class="size-5" :class="[activeTab === 'temperature' ? 'filter-white' : 'filter-gray']" />
             Temperature
           </TabsTrigger>
-          <TabsTrigger value="calories" class="h-auto flex-1 gap-2 rounded-md border-none px-3 py-1.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
-            <img :src="FireIcon" class="size-4" />
+          <TabsTrigger value="calories" class="h-auto flex-1 gap-2.5 rounded-lg border-none px-5 py-3 text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
+            <img :src="FireIcon" class="size-5" :class="[activeTab === 'calories' ? 'filter-white' : 'filter-gray']" />
             Calories Burned
           </TabsTrigger>
         </TabsList>
