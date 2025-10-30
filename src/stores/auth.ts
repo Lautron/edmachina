@@ -33,5 +33,19 @@ import { defineStore } from 'pinia'
     localStorage.setItem('isLoggedIn', String(newValue))
   })
 
-  return { isLoggedIn, login, logout, register }
+  function checkEmailExists(email: string): boolean {
+    return email === storedEmail.value && storedEmail.value !== ''
+  }
+
+  function resetPassword(email: string, newPassword: string): boolean {
+    if (email === storedEmail.value && storedEmail.value !== '') {
+      storedPassword.value = newPassword
+      localStorage.setItem('password', newPassword)
+      return true
+    }
+    return false
+  }
+
+
+  return { isLoggedIn, login, logout, register, checkEmailExists, resetPassword }
 })
