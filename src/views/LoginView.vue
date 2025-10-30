@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth'
-import { useRouter } from 'vue-router'
+import { useRouter, RouterLink } from 'vue-router'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import Logo from '@/assets/icons/logo.svg'
 
 const authStore = useAuthStore()
 const router = useRouter()
@@ -13,8 +16,45 @@ function handleLogin() {
 </script>
 
 <template>
-  <div class="login">
-    <h1>Login Page</h1>
-    <Button @click="handleLogin">Log In</Button>
+  <div class="flex min-w-screen min-h-screen items-center justify-center bg-gray-100">
+    <Card class="w-full max-w-sm">
+      <CardHeader class="text-center">
+        <div class="mb-4 flex justify-center">
+          <img :src="Logo" class="size-12" alt="PetCare Logo" />
+        </div>
+        <CardTitle class="text-2xl font-bold">
+          Welcome to PetCare
+        </CardTitle>
+        <CardDescription>
+          Enter your credentials to access your account
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div class="space-y-4">
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <Input id="email" type="email" placeholder="m@example.com" class="mt-1" />
+          </div>
+          <div>
+            <div class="flex items-center justify-between">
+              <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+              <RouterLink to="/forgot-password" class="text-sm text-primary hover:underline">
+                Forgot password?
+              </RouterLink>
+            </div>
+            <Input id="password" type="password" class="mt-1" />
+          </div>
+          <Button class="w-full" @click="handleLogin">
+            Log In
+          </Button>
+        </div>
+        <div class="mt-6 text-center text-sm">
+          Don't have an account?
+          <RouterLink to="/register" class="text-primary hover:underline">
+            Sign up
+          </RouterLink>
+        </div>
+      </CardContent>
+    </Card>
   </div>
 </template>
