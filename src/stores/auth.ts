@@ -1,8 +1,9 @@
 import { ref, watch } from 'vue'
 import { defineStore } from 'pinia'
-
-export const useAuthStore = defineStore('auth', () => {
-  const isLoggedIn = ref(localStorage.getItem('isLoggedIn') === 'true')
+ 
+ export const useAuthStore = defineStore('auth', () => {
+   const isLoggedIn = ref(localStorage.getItem('isLoggedIn') === 'true')
+   const storedFullName = ref(localStorage.getItem('fullName') || 'John Doe')
 
   const storedEmail = ref(localStorage.getItem('email') || 'user@example.com')
   const storedPassword = ref(localStorage.getItem('password') || 'password123')
@@ -12,6 +13,15 @@ export const useAuthStore = defineStore('auth', () => {
   }
   if (!localStorage.getItem('password')) {
     localStorage.setItem('password', storedPassword.value)
+  }
+
+  function register(fullName: string, email: string, password: string) {
+    storedFullName.value = fullName
+    storedEmail.value = email
+    storedPassword.value = password
+    localStorage.setItem('fullName', fullName)
+    localStorage.setItem('email', email)
+    localStorage.setItem('password', password)
   }
 
   function login(email: string, password: string): boolean {
@@ -30,5 +40,5 @@ export const useAuthStore = defineStore('auth', () => {
     localStorage.setItem('isLoggedIn', String(newValue))
   })
 
-  return { isLoggedIn, login, logout }
+  return { isLoggedIn, login, logout, register }
 })
