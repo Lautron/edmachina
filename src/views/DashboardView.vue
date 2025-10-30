@@ -32,7 +32,6 @@ onMounted(async () => {
               :title="stat.title"
               :percentage="stat.percentage"
               :chart-color="stat.chartColor"
-              :dropdown-options="stat.dropdownOptions"
             />
           </template>
         </div>

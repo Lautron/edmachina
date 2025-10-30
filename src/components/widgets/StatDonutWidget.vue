@@ -1,42 +1,40 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 const props = withDefaults(
   defineProps<{
     title: string
-    percentage: number
+    percentage: {
+      daily: number
+      weekly: number
+      monthly: number
+    }
     chartColor?: string
-    dropdownOptions?: string[]
   }>(),
   {
-    chartColor: 'text-primary', // Default color
-    dropdownOptions: () => ['Daily', 'Weekly', 'Monthly'],
+    chartColor: 'text-destructive',
   },
 )
+
+const dropdownOptions = computed(() => Object.keys(props.percentage).map(p => p.charAt(0).toUpperCase() + p.slice(1)))
+const selectedPeriod = ref(dropdownOptions.value[0] || 'Weekly')
 
 const radius = 45
 const circumference = 2 * Math.PI * radius
 
-const strokeDashoffset = computed(() => {
-  return circumference - (props.percentage / 100) * circumference
+const currentPercentage = computed(() => {
+  return props.percentage[selectedPeriod.value.toLowerCase() as keyof typeof props.percentage] || 0
 })
 
-const selectedDropdownValue = computed({
-  get: () => props.dropdownOptions[0],
-  set: () => {},
+const strokeDashoffset = computed(() => {
+  return circumference - (currentPercentage.value / 100) * circumference
 })
 </script>
 
@@ -46,9 +44,9 @@ const selectedDropdownValue = computed({
       <CardTitle class="text-base font-medium text-muted-foreground">
         {{ title }}
       </CardTitle>
-      <Select v-model="selectedDropdownValue">
+      <Select v-model="selectedPeriod">
         <SelectTrigger >
-          <SelectValue :placeholder="selectedDropdownValue" />
+          <SelectValue :placeholder="selectedPeriod" />
         </SelectTrigger>
         <SelectContent>
           <SelectItem v-for="option in dropdownOptions" :key="option" :value="option">
@@ -83,7 +81,7 @@ const selectedDropdownValue = computed({
           />
         </svg>
         <span class="absolute text-5xl font-semibold">
-          {{ percentage }}%
+          {{ currentPercentage }}%
         </span>
       </div>
     </CardContent>

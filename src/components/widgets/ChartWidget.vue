@@ -35,25 +35,27 @@ onMounted(async () => {
 })
 
 const dropdownOptions = ['Daily', 'Weekly', 'Monthly']
-const selectedDropdownValue = ref(dropdownOptions[2])
+const selectedPeriod = ref(dropdownOptions[2])
 
 
 const yFormatter = (tick: number) => tick.toFixed(0)
 const yFormatterWithOneDecimal = (tick: number) => tick.toFixed(1)
 
 const chartConfig = computed(() => {
-  if (!healthData.value)
+  if (!healthData.value || !selectedPeriod.value)
     return null
+
+  const period = selectedPeriod.value.toLowerCase() as keyof typeof healthData.value.stress
 
   switch (activeTab.value) {
     case 'stress':
-      return { data: healthData.value.stress, yFormatter }
+      return { data: healthData.value.stress[period], yFormatter }
     case 'pulse':
-      return { data: healthData.value.pulse, yFormatter }
+      return { data: healthData.value.pulse[period], yFormatter }
     case 'temperature':
-      return { data: healthData.value.temperature, yFormatter: yFormatterWithOneDecimal }
+      return { data: healthData.value.temperature[period], yFormatter: yFormatterWithOneDecimal }
     case 'calories':
-      return { data: healthData.value.calories, yFormatter }
+      return { data: healthData.value.calories[period], yFormatter }
     default:
       return null
   }
@@ -66,9 +68,9 @@ const chartConfig = computed(() => {
       <CardTitle class="text-base font-semibold uppercase text-muted-foreground tracking-wider">
         Health Monitoring
       </CardTitle>
-      <Select v-model="selectedDropdownValue">
+      <Select v-model="selectedPeriod">
         <SelectTrigger class="w-[120px]">
-          <SelectValue :placeholder="selectedDropdownValue" />
+          <SelectValue :placeholder="selectedPeriod" />
         </SelectTrigger>
         <SelectContent>
           <SelectItem v-for="option in dropdownOptions" :key="option" :value="option">
@@ -104,7 +106,7 @@ const chartConfig = computed(() => {
           <LineChart
             class="h-full"
             :data="chartConfig.data"
-            index="month"
+            index="period"
             :categories="['level']"
             :y-formatter="chartConfig.yFormatter"
           />
