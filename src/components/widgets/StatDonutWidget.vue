@@ -47,7 +47,7 @@ const selectedDropdownValue = computed({
         {{ title }}
       </CardTitle>
       <Select v-model="selectedDropdownValue">
-        <SelectTrigger class="h-auto w-auto border-none bg-transparent p-0 shadow-none focus:ring-0">
+        <SelectTrigger >
           <SelectValue :placeholder="selectedDropdownValue" />
         </SelectTrigger>
         <SelectContent>

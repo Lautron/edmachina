@@ -19,6 +19,13 @@ import {
 import { LineChart } from '@/components/ui/chart-line'
 import { VisArea } from '@unovis/vue'
 import { CurveType } from '@unovis/ts'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 const stressData = [
   { month: 'September', level: 1.2 },
@@ -103,6 +110,12 @@ const chartData = computed(() => {
   }
 })
 
+const dropdownOptions = ['Daily', 'Weekly', 'Monthly']
+const selectedDropdownValue = computed({
+  get: () => dropdownOptions[2],
+  set: () => {},
+})
+
 
 </script>
 
@@ -120,14 +133,14 @@ const chartData = computed(() => {
       <CardTitle class="text-base font-semibold uppercase text-muted-foreground tracking-wider">
         Health Monitoring
       </CardTitle>
-      <Select default-value="monthly">
+      <Select v-model="selectedDropdownValue">
         <SelectTrigger class="w-[120px]">
-          <SelectValue placeholder="Monthly" />
+          <SelectValue :placeholder="selectedDropdownValue" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="daily">Daily</SelectItem>
-          <SelectItem value="weekly">Weekly</SelectItem>
-          <SelectItem value="monthly">Monthly</SelectItem>
+          <SelectItem v-for="option in dropdownOptions" :key="option" :value="option">
+            {{ option }}
+          </SelectItem>
         </SelectContent>
       </Select>
     </CardHeader>
