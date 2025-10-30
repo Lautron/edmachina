@@ -28,9 +28,15 @@
  import helenAvatar from '@/assets/avatars/helen.jpg'
  import kathrynAvatar from '@/assets/avatars/kathryn.jpg'
  import jamesAvatar from '@/assets/avatars/james.jpg'
-
+ 
+ import { useAuthStore } from '@/stores/auth'
+ import { useRouter } from 'vue-router'
+ 
+ const authStore = useAuthStore()
+ const router = useRouter()
  function logout() {
-   console.log('Logging out...')
+   authStore.logout()
+   router.push('/login')
  }
  </script>
 
