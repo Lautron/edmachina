@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Card } from '@/components/ui/card'
 import StatDonutWidget from '@/components/widgets/StatDonutWidget.vue'
 import ChartWidget from '@/components/widgets/ChartWidget.vue'
 import ChatWidget from '@/components/widgets/ChatWidget.vue'
+import VaccinationSchedule from '@/components/widgets/VaccinationSchedule.vue'
 </script>
 
 <template>
@@ -35,7 +35,7 @@ import ChatWidget from '@/components/widgets/ChatWidget.vue'
 
       <!-- Right Section -->
       <div class="flex flex-col gap-5 lg:col-span-2">
-        <Card class="basis-0 grow-[60]" />
+        <VaccinationSchedule class="basis-0 grow-[60]" />
         <ChatWidget class="basis-0 grow-[40]" />
       </div>
     </div>
