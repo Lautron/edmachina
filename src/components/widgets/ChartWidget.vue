@@ -66,7 +66,7 @@ const selectedDropdownValue = ref(dropdownOptions[2])
         <TabsList class="grid h-auto w-full grid-cols-2 gap-2 bg-transparent p-0 sm:grid-cols-4">
           <TabsTrigger value="stress" class="h-auto flex-1 gap-2.5 rounded-lg border-none px-5 py-3 text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
             <img :src="HeartIcon" class="size-5" :class="[activeTab === 'stress' ? 'filter-white' : 'filter-gray']" />
-            <span class="text-base font-semibold">Stress</span>
+            <span class="text-base font-semibold">Stress level</span>
           </TabsTrigger>
           <TabsTrigger value="pulse" class="h-auto flex-1 gap-2.5 rounded-lg border-none px-5 py-3 text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
             <img :src="HeartbeatIcon" class="size-5" :class="[activeTab === 'pulse' ? 'filter-white' : 'filter-gray']" />
@@ -78,7 +78,7 @@ const selectedDropdownValue = ref(dropdownOptions[2])
           </TabsTrigger>
           <TabsTrigger value="calories" class="h-auto flex-1 gap-2.5 rounded-lg border-none px-5 py-3 text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm">
             <img :src="FireIcon" class="size-5" :class="[activeTab === 'calories' ? 'filter-white' : 'filter-gray']" />
-            <span class="text-base font-semibold">Calories</span>
+            <span class="text-base font-semibold">Calories burned</span>
           </TabsTrigger>
         </TabsList>
         <TabsContent value="stress" class="mt-4 flex-1">

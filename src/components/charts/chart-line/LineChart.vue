@@ -50,19 +50,36 @@ const chartOptions = computed<ApexOptions>(() => ({
         colors: 'hsl(var(--vis-text-color))',
       },
     },
+    axisBorder: {
+      show: false,
+    },
+    axisTicks: {
+      show: false,
+    },
   },
   tooltip: {
     theme: 'dark',
   },
   grid: {
-    borderColor: 'hsl(var(--border))',
+    strokeDashArray: 5,
+    borderColor: '#ccc',
+    xaxis: {
+      lines: {
+        show: false,
+      },
+    },
+    yaxis: {
+      lines: {
+        show: true,
+      },
+    },
   },
   fill: {
     type: 'gradient',
     gradient: {
-      shadeIntensity: 1,
-      opacityFrom: 0.2,
-      opacityTo: 0,
+      shadeIntensity: 0.5,
+      opacityFrom: 0.5,
+      opacityTo: 0.1,
       stops: [0, 100],
     },
   },
