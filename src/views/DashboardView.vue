@@ -7,12 +7,12 @@ import WidgetSearchHeader from '@/components/widgets/WidgetSearchHeader.vue'
 </script>
 
 <template>
-  <div class="flex h-full flex-col gap-5">
+  <div class="flex h-full flex-col gap-6">
     <WidgetSearchHeader />
-    <div class="grid flex-1 grid-cols-1 gap-5 px-4 pb-4 lg:grid-cols-6">
+    <div class="grid flex-1 grid-cols-1 gap-6 px-6 pb-4 lg:grid-cols-5">
       <!-- Left Section -->
-      <div class="grid grid-rows-[auto_1fr] gap-5 lg:col-span-4">
-        <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
+      <div class="grid grid-rows-[auto_1fr] gap-6 lg:col-span-3">
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
           <StatDonutWidget
               title="ACTIVITY"
               :percentage="25"
@@ -35,9 +35,9 @@ import WidgetSearchHeader from '@/components/widgets/WidgetSearchHeader.vue'
       </div>
 
       <!-- Right Section -->
-      <div class="flex flex-col gap-5 lg:col-span-2">
-        <VaccinationSchedule class="basis-0 grow-[60]" />
-        <ChatWidget class="basis-0 grow-[40]" />
+      <div class="grid grid-rows-20 gap-6 lg:col-span-2">
+        <VaccinationSchedule class="row-span-12" />
+        <ChatWidget class="row-span-8" />
       </div>
     </div>
   </div>
