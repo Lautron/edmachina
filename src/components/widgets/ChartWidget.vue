@@ -16,9 +16,7 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs'
-import { LineChart } from '@/components/ui/chart-line'
-import { VisArea } from '@unovis/vue'
-import { CurveType } from '@unovis/ts'
+import { LineChart } from '@/components/charts/chart-line'
 import {
   Select,
   SelectContent,
@@ -44,14 +42,6 @@ const selectedDropdownValue = ref(dropdownOptions[2])
 </script>
 
 <template>
-  <svg width="0" height="0" class="absolute">
-    <defs>
-      <linearGradient id="area-fill-gradient" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="hsl(var(--vis-primary-color))" stop-opacity="0.2" />
-        <stop offset="100%" stop-color="hsl(var(--vis-primary-color))" stop-opacity="0" />
-      </linearGradient>
-    </defs>
-  </svg>
   <Card>
     <CardHeader class="flex flex-row items-center justify-between">
       <CardTitle class="text-base font-semibold uppercase text-muted-foreground tracking-wider">
@@ -97,11 +87,8 @@ const selectedDropdownValue = ref(dropdownOptions[2])
             :data="healthData.stress"
             index="month"
             :categories="['level']"
-            :show-legend="false"
-            :y-formatter="(tick: any) => typeof tick === 'number' ? tick.toFixed(0) : ''"
-          >
-            <VisArea :x="(d: any, i: number) => i" :y="(d: any) => d.level" :curve-type="CurveType.MonotoneX" color="url(#area-fill-gradient)" />
-          </LineChart>
+            :y-formatter="(tick: number) => tick.toFixed(0)"
+          />
         </TabsContent>
         <TabsContent value="pulse" class="mt-4 flex-1">
           <LineChart
@@ -109,11 +96,8 @@ const selectedDropdownValue = ref(dropdownOptions[2])
             :data="healthData.pulse"
             index="month"
             :categories="['level']"
-            :show-legend="false"
-            :y-formatter="(tick: any) => typeof tick === 'number' ? tick.toFixed(0) : ''"
-          >
-            <VisArea :x="(d: any, i: number) => i" :y="(d: any) => d.level" :curve-type="CurveType.MonotoneX" color="url(#area-fill-gradient)" />
-          </LineChart>
+            :y-formatter="(tick: number) => tick.toFixed(0)"
+          />
         </TabsContent>
         <TabsContent value="temperature" class="mt-4 flex-1">
           <LineChart
@@ -121,11 +105,8 @@ const selectedDropdownValue = ref(dropdownOptions[2])
             :data="healthData.temperature"
             index="month"
             :categories="['level']"
-            :show-legend="false"
-            :y-formatter="(tick: any) => typeof tick === 'number' ? tick.toFixed(1) : ''"
-          >
-            <VisArea :x="(d: any, i: number) => i" :y="(d: any) => d.level" :curve-type="CurveType.MonotoneX" color="url(#area-fill-gradient)" />
-          </LineChart>
+            :y-formatter="(tick: number) => tick.toFixed(1)"
+          />
         </TabsContent>
         <TabsContent value="calories" class="mt-4 flex-1">
           <LineChart
@@ -133,11 +114,8 @@ const selectedDropdownValue = ref(dropdownOptions[2])
             :data="healthData.calories"
             index="month"
             :categories="['level']"
-            :show-legend="false"
-            :y-formatter="(tick: any) => typeof tick === 'number' ? tick.toFixed(0) : ''"
-          >
-            <VisArea :x="(d: any, i: number) => i" :y="(d: any) => d.level" :curve-type="CurveType.MonotoneX" color="url(#area-fill-gradient)" />
-          </LineChart>
+            :y-formatter="(tick: number) => tick.toFixed(0)"
+          />
         </TabsContent>
       </Tabs>
     </CardContent>
