@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Search } from 'lucide-vue-next'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import {
   Card,
   CardContent,
@@ -27,10 +27,31 @@ import {
 import { getVaccinations, type Vaccination } from '@/api/mock'
 
 const vaccinations = ref<Vaccination[]>([])
+const sortBy = ref('by-type')
 const loading = ref(true)
 onMounted(async () => {
   vaccinations.value = await getVaccinations()
   loading.value = false
+})
+
+const sortedVaccinations = computed(() => {
+  const sorted = [...vaccinations.value]
+  if (sortBy.value === 'by-date') {
+    return sorted.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+  }
+  if (sortBy.value === 'by-type') {
+    const typeOrder = { 'Overdue': 1, 'Core': 2, 'Noncore': 3 } as const;
+    return sorted.sort((a, b) => {
+      const orderA = typeOrder[a.type] || 4;
+      const orderB = typeOrder[b.type] || 4;
+      if (orderA !== orderB) {
+        return orderA - orderB
+      }
+      // Secondary sort by date if types are the same
+      return new Date(a.date).getTime() - new Date(b.date).getTime()
+    })
+  }
+  return vaccinations.value
 })
 
 const badgeVariants = {
@@ -49,7 +70,7 @@ const badgeVariants = {
         </CardTitle>
         <div class="flex items-center gap-4">
           <Search class="size-5 text-muted-foreground" />
-          <Select default-value="by-type">
+          <Select v-model="sortBy" default-value="by-type">
             <SelectTrigger class="w-auto">
               <SelectValue placeholder="By type" />
             </SelectTrigger>
@@ -75,7 +96,7 @@ const badgeVariants = {
           </TableRow>
         </TableHeader>
         <TableBody class="h-full">
-          <TableRow v-for="vaccination in vaccinations" :key="vaccination.name">
+          <TableRow v-for="vaccination in sortedVaccinations" :key="vaccination.name">
             <TableCell class="font-medium text-base py-7 px-6">{{ vaccination.name }}</TableCell>
             <TableCell class="text-base py-7 px-6">
               <Badge :variant="badgeVariants[vaccination.type]" class="rounded-sm px-4 py-2">{{ vaccination.type }}</Badge>
